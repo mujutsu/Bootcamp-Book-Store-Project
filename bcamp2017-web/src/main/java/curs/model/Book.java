@@ -55,7 +55,7 @@ public class Book implements BookInterface{
 		return mAvailableCount;
 	}
 
-	public void setAvailableCount(int pAvailableCount) {
+	public void setAvailableCount (Integer pAvailableCount) {
 		mAvailableCount = pAvailableCount;
 	}
 
@@ -63,20 +63,10 @@ public class Book implements BookInterface{
 		return mSellCount;
 	}
 
-	public void setSellCount(int pSellCount) {
+	public void setSellCount(Integer pSellCount) {
 		mSellCount = pSellCount;
 	}
 
-	@Override
-	public void setAvailableCount(Integer pAvailable) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public void setSellCount(Integer pBooked) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

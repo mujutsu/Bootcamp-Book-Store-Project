@@ -11,9 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
+import curs.interfaces.UserInterface;
+
 @Entity
 @Table(name = "users", schema = "security")
-public class User {
+public class User implements UserInterface{
 	@Id
 	@Column(name = "user_name")
 	private String mLoginName;

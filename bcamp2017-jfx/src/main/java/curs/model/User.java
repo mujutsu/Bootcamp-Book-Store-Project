@@ -3,7 +3,9 @@ package curs.model;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class User {
+import curs.interfaces.UserInterface;
+
+public class User implements UserInterface{
 	
 	private String mLoginName;
 	private String mPasswd;

@@ -1,8 +1,8 @@
-                        package curs.interfaces;
+package curs.interfaces;
 
 public interface BookInterface {
-
 	public Long getId();
+
 
 	public String getTitle();
 

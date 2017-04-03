@@ -1,29 +1,50 @@
 package curs.model;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+
+import javax.enterprise.context.SessionScoped;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import curs.interfaces.ShoppingCartInterface;
 import curs.interfaces.ShoppingCartItemInterface;
 
-public class ShoppingCart implements ShoppingCartInterface{
+@SessionScoped
+@Entity
+@Table(name = "cart_item")
+public class ShoppingCart implements ShoppingCartInterface,Serializable {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	@OneToMany(mappedBy="mCart")
+	private Collection<ShoppingCartItem> mItems;
+	@Column(name="status")
+	private Status mStatus = Status.OPENED;
 
 	@Override
 	public Long getId() {
-		// TODO Auto-generated method stub
-		return null;
+		return id;
 	}
 
 	@Override
 	public Collection<ShoppingCartItemInterface> getItems() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<>(mItems);
 	}
 
 	@Override
-	public void setItems(Collection<ShoppingCartItemInterface> pCollections) {
-		// TODO Auto-generated method stub
-		
+	public void setItems(Collection<ShoppingCartItemInterface> pItems) {
+		mItems = new ArrayList<>();
+		for(ShoppingCartItemInterface sci : pItems) {
+			mItems.add((ShoppingCartItem)sci);
+		}
 	}
 
 	@Override
@@ -35,7 +56,7 @@ public class ShoppingCart implements ShoppingCartInterface{
 	@Override
 	public void setCartUser(String pName) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -47,7 +68,19 @@ public class ShoppingCart implements ShoppingCartInterface{
 	@Override
 	public void setCartStatus(Status pStatus) {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	@Override
+	public Date getCartStartTime() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setCartStartTime(Date pDate) {
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
@@ -59,7 +92,7 @@ public class ShoppingCart implements ShoppingCartInterface{
 	@Override
 	public void setCartClosingTime(Date pDate) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -69,27 +102,14 @@ public class ShoppingCart implements ShoppingCartInterface{
 	}
 
 	@Override
-	public void setPaymentData(String pPayData) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void setPaymentData() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public void setCartStartTime(Date pDate) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Date getCartStartTime() {
-		// TODO Auto-generated method stub
-		return null;
+	public String toString() {
+		return this.getClass().getSimpleName()+" [id=" + id + ", mItems=" + mItems + ", mStatus=" + mStatus + "]";
 	}
 
 }

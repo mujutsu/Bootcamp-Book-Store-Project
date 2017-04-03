@@ -80,10 +80,7 @@ public class BooksTableController extends BaseController {
 
 	@FXML
 	void onAdd(ActionEvent event) {
-		if(true) {
-			navigateToScreen(ScreenNames.loginScreen);
-			return;
-		}
+
 		Book b = new Book();
 		b.setTitle(bTitle.getText());
 		b.setAuthor(bAuthor.getText());
@@ -102,20 +99,25 @@ public class BooksTableController extends BaseController {
 			Integer count = Integer.parseInt(bBooked.getText());
 			mCurrentBook.setAvailableCount(mCurrentBook.getAvailableCount() - count);
 			mCurrentBook.setSellCount(mCurrentBook.getSellCount() + count);
-			mBSI.updateBook(mCurrentBook).execute();
+			System.out.println("book left "+mCurrentBook.getAvailableCount());
+			mBSI.updateBook(mCurrentBook).execute(); 
+
 			onRefreshBooks(event);
-		} catch(NumberFormatException ex) {
+		} catch (NumberFormatException ex) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Wrong quantity");
 			alert.setContentText("Invalid number value");
 			alert.showAndWait();
 			return;
-		} catch (IOException e) {
+		} 
+		catch (IOException e) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Service Error");
 			alert.setContentText("Service err:" + e.getMessage());
 			alert.showAndWait();
 		}
+		
+
 	}
 
 	@FXML
@@ -133,7 +135,8 @@ public class BooksTableController extends BaseController {
 		Book b = new Book();
 		b.setTitle(bTitle.getText());
 		b.setAuthor(bAuthor.getText());
-//		b.setId(mCurrentBook.getId());
+		 b.setId(mCurrentBook.getId());
+		 System.out.println("CURRENT BOOK BEING MODIFIED: ID - "+mCurrentBook.getId());
 		b.setAvailableCount(Integer.parseInt(bAvailable.getText()));
 		b.setSellCount(mCurrentBook.getSellCount());
 		try {
@@ -143,41 +146,42 @@ public class BooksTableController extends BaseController {
 		}
 		onRefreshBooks(event);
 	}
-	
-  @FXML
-  void onRefreshBooks(ActionEvent event) {
-  	System.out.println("OnResfreshBooks");
-  	mBookCollection.clear();
-  	try {
-  		List<Book> books = mBSI.getAllBooks().execute().body();
-    	System.out.println("OnResfreshBooks:" + books);
+
+	@FXML
+	void onRefreshBooks(ActionEvent event) {
+		System.out.println("OnRefreshBooks");
+		mBookCollection.clear();
+		try {
+			List<Book> books = mBSI.getAllBooks().execute().body();
+			System.out.println("OnRefreshBooks:" + books);
 			mBookCollection.addAll(books);
 			showBookDetails(null);
 			mCurrentBook = null;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-  }
-  
-  private final ObservableList<Book> mBookCollection = FXCollections.observableArrayList();
-  private BookServiceInterface mBSI;
-  private UserServiceInterface mUSI;
-  private Book mCurrentBook;
-  
-  
-  private void showBookDetails(Book pBook) {
-    if (pBook != null) {
-        // Fill the labels with info from the person object.
-        bTitle.setText(pBook.getTitle());
-        bAuthor.setText(pBook.getAuthor());
-        bAvailable.setText("" + pBook.getAvailableCount());
-    } else {
-        // Person is null, remove all the text.
-      bTitle.setText("");
-      bAuthor.setText("");
-      bAvailable.setText("");
-    }
-}
+	}
+
+	private final ObservableList<Book> mBookCollection = FXCollections.observableArrayList();
+	private BookServiceInterface mBSI;
+	private UserServiceInterface mUSI;
+	private Book mCurrentBook;
+
+	private void showBookDetails(Book pBook) {
+		if (pBook != null) {
+			// Fill the labels with info from the person object.
+			bTitle.setText(pBook.getTitle());
+			bAuthor.setText(pBook.getAuthor());
+			bAvailable.setText("" + pBook.getAvailableCount());
+			
+		} else {
+			// Person is null, remove all the text.
+			bTitle.setText("");
+			bAuthor.setText("");
+			bAvailable.setText("");
+			bBooked.setText("");
+		}
+	}
 
 	@FXML
 	void initialize() {
@@ -201,45 +205,44 @@ public class BooksTableController extends BaseController {
 		colBooked.setCellValueFactory(new PropertyValueFactory<Book, Integer>("sellCount"));
 
 		/**
-		OkHttpClient okClient = new OkHttpClient();
-		okClient.interceptors().add(new Interceptor() {
-			
-			public Response intercept(Chain chain) throws IOException {
-				System.out.println("req:" + chain.request().toString());
-				Response response = chain.proceed(chain.request());
-				return response;
-			}
-		});
-		String baseUrl = "http://localhost:8080/Day33CDI/rest/";
-		Retrofit client = new Retrofit.Builder().baseUrl(baseUrl).client(okClient).addConverterFactory(JacksonConverterFactory.create()).build();
-		mBSI = client.create(BookServiceInterface.class);
-		*/
+		 * OkHttpClient okClient = new OkHttpClient();
+		 * okClient.interceptors().add(new Interceptor() {
+		 * 
+		 * public Response intercept(Chain chain) throws IOException {
+		 * System.out.println("req:" + chain.request().toString()); Response
+		 * response = chain.proceed(chain.request()); return response; } });
+		 * String baseUrl = "http://localhost:8080/Day33CDI/rest/"; Retrofit
+		 * client = new
+		 * Retrofit.Builder().baseUrl(baseUrl).client(okClient).addConverterFactory(JacksonConverterFactory.create()).build();
+		 * mBSI = client.create(BookServiceInterface.class);
+		 */
 		mBSI = RestClient.instance().getBookServiceInterface();
 		mUSI = RestClient.instance().getUserServiceInterface();
-//		User user = new User();
-//		user.setLoginName("viorel");
-//		user.setPasswd("viorel");
-//		try {
-//			System.out.println("Login:" + mUSI.login(user).execute().body());
-//			System.out.println("isLoggedIn:" + mUSI.isLoggedIn().execute().body());
-//			System.out.println("logout:" + mUSI.logout().execute().body());
-//			System.out.println("isLoggedIn:" + mUSI.isLoggedIn().execute().body());
-//			System.out.println("Login:" + mUSI.login(user).execute().body());
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
+		// User user = new User();
+		// user.setLoginName("viorel");
+		// user.setPasswd("viorel");
+		// try {
+		// System.out.println("Login:" + mUSI.login(user).execute().body());
+		// System.out.println("isLoggedIn:" +
+		// mUSI.isLoggedIn().execute().body());
+		// System.out.println("logout:" + mUSI.logout().execute().body());
+		// System.out.println("isLoggedIn:" +
+		// mUSI.isLoggedIn().execute().body());
+		// System.out.println("Login:" + mUSI.login(user).execute().body());
+		// } catch (IOException e) {
+		// e.printStackTrace();
+		// }
 		bookTable.setItems(mBookCollection);
 		btnUpdate.disableProperty().bind(Bindings.isNull(bookTable.getSelectionModel().selectedItemProperty()));
 		btnRemove.disableProperty().bind(Bindings.isNull(bookTable.getSelectionModel().selectedItemProperty()));
 		btnBook.disableProperty().bind(Bindings.isNull(bookTable.getSelectionModel().selectedItemProperty()));
 		showBookDetails(null);
-	  // Listen for selection changes and show the person details when changed.
-	  bookTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-	  	showBookDetails(newValue);
-	  	mCurrentBook = newValue;
-	  });
+		// Listen for selection changes and show the person details when
+		// changed.
+		bookTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+			showBookDetails(newValue);
+			mCurrentBook = newValue;
+		});
 	}
 
-	
-	
 }

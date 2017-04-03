@@ -14,6 +14,7 @@ public class ShoppingCart implements ShoppingCartInterface {
 	private Date mStartTime;
 	private Date mClosingTime;
 	private String mPaymentData;
+	private Long id;
 	
 	@Override
 	public Collection<ShoppingCartItemInterface> getItems() {
@@ -40,12 +41,13 @@ public class ShoppingCart implements ShoppingCartInterface {
 	@Override
 	public Status getCartStatus() {
 		// TODO Auto-generated method stub
-		return null;
+		return mStatus;
 	}
 
 	@Override
 	public void setCartStatus(Status pStatus) {
 		// TODO Auto-generated method stub
+		mStatus=pStatus;
 
 	}
 
@@ -76,7 +78,7 @@ public class ShoppingCart implements ShoppingCartInterface {
 	@Override
 	public String getPaymentData() {
 		// TODO Auto-generated method stub
-		return null;
+		return mPaymentData;
 	}
 
 	@Override
@@ -88,13 +90,9 @@ public class ShoppingCart implements ShoppingCartInterface {
 	@Override
 	public Long getId() {
 		// TODO Auto-generated method stub
-		return null;
+		return id;
 	}
 
-	@Override
-	public void setPaymentData(String pPayData) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 }

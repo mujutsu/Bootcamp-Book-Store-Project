@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox fx:id="VBox" prefHeight="314.0" prefWidth="555.0" spacing="5.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="curs.controllers.ShoppingCartController">
+   <children>
+      <TableView prefHeight="200.0" prefWidth="200.0">
+        <columns>
+          <TableColumn prefWidth="225.80001831054688" text="Book Name" />
+          <TableColumn prefWidth="116.199951171875" text="Author" />
+            <TableColumn prefWidth="103.79998779296875" text="Quantity" />
+            <TableColumn prefWidth="107.20001220703125" text="Change Quantity" />
+            <TableColumn minWidth="7.79998779296875" prefWidth="7.79998779296875" text="PLACEHOLDER" />
+        </columns>
+      </TableView>
+      <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="134.0" text="Checkout">
+         <VBox.margin>
+            <Insets left="55.0" />
+         </VBox.margin>
+      </Button>
+      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="134.0" text="Logout">
+         <VBox.margin>
+            <Insets left="55.0" />
+         </VBox.margin>
+      </Button>
+      <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="134.0" text="Cancel Cart">
+         <VBox.margin>
+            <Insets left="55.0" />
+         </VBox.margin>
+      </Button>
+   </children>
+</VBox>

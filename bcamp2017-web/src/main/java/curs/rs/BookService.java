@@ -1,6 +1,7 @@
 package curs.rs;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 
 import javax.enterprise.event.Event;
@@ -14,6 +15,7 @@ import curs.events.BookAddedEvent;
 import curs.events.BookRemovedEvent;
 import curs.model.Book;
 import curs.rs.interfaces.BookServiceInterface;
+import curs.utils.SearchFilter;
 
 @Logging
 public class BookService implements BookServiceInterface, Serializable {
@@ -51,4 +53,10 @@ public class BookService implements BookServiceInterface, Serializable {
 		mBookRemoveNotifier.fire(new BookRemovedEvent(book));
 		return book;
 	}
+	@Override
+	public Collection<Book> search(SearchFilter pFilter) {
+		// TODO Auto-generated method stub
+		return mBookDAO.search(pFilter);
+	}
+
 }
