@@ -2,7 +2,9 @@ package curs.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
+import curs.interfaces.ShoppingCartInterface;
 import curs.interfaces.UserInterface;
 
 public class User implements UserInterface{
@@ -10,6 +12,9 @@ public class User implements UserInterface{
 	private String mLoginName;
 	private String mPasswd;
 	private Collection<String> mRoles = new ArrayList<>();
+	private ActiveShoppingCart mShoppingCart;
+	private List<Order> mOrderHistory;
+
 
 	public String getLoginName() {
 		return mLoginName;
@@ -35,4 +40,15 @@ public class User implements UserInterface{
 		mRoles = pRoles;
 	}
 
+	//@Override
+	public void setOrderHistory(List<Order> pOrderHistory) {
+		mOrderHistory=pOrderHistory;
+		
+	}
+
+	//@Override
+	public List<Order> getOrderHistory() {
+		// TODO Auto-generated method stub
+		return mOrderHistory;
+	}
 }

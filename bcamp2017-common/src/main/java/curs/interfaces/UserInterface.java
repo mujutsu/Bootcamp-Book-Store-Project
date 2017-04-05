@@ -1,6 +1,7 @@
 package curs.interfaces;
 
 import java.util.Collection;
+import java.util.List;
 
 public interface UserInterface {
 
@@ -15,4 +16,6 @@ public interface UserInterface {
 	public void setLoginName(String pLoginName) ;
 	public String getPasswd();
 	public void setPasswd(String pPasswd) ;
+//	public void setOrderHistory(List<ShoppingCartInterface>mOrders);
+//	public List<ShoppingCartInterface> getOrderHistory();
 }

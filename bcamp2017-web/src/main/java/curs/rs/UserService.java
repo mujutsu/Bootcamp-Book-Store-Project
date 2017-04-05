@@ -1,5 +1,7 @@
 package curs.rs;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.persistence.PersistenceException;
 import javax.servlet.ServletException;
@@ -11,6 +13,8 @@ import curs.cdi.Logging;
 import curs.cdi.PostgresDB;
 import curs.dao.UserDao;
 import curs.exceptions.ValidationException;
+import curs.model.Order;
+import curs.model.ActiveShoppingCart;
 import curs.model.User;
 import curs.rs.interfaces.UserServiceInterface;
 import curs.utils.ValidationUtils;
@@ -73,5 +77,6 @@ public class UserService implements UserServiceInterface {
 	public boolean hasRole(String pRole) {
 		return mHTTPRequest.isUserInRole(pRole);
 	}
+
 
 }

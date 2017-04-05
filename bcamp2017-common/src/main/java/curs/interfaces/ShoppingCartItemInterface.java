@@ -7,4 +7,7 @@ public interface ShoppingCartItemInterface {
 	void setBook(BookInterface pBook);
 	int getQuantity();
 	void setQuantity(int pQuantity);
+
+	void setShoppingCart(ShoppingCartInterface cart);
+	
 }

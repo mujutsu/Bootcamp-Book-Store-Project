@@ -1,45 +1,36 @@
 package curs.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
-import javax.enterprise.context.SessionScoped;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
 import curs.interfaces.ShoppingCartInterface;
 import curs.interfaces.ShoppingCartItemInterface;
 
-@SessionScoped
-@Entity
-@Table(name = "cart_item")
-public class ShoppingCart implements ShoppingCartInterface,Serializable {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ShoppingCart implements ShoppingCartInterface{
+
 	private Long id;
-	@OneToMany(mappedBy="mCart")
+
 	private Collection<ShoppingCartItem> mItems;
-	@Column(name="status")
+
 	private Status mStatus = Status.OPENED;
+
+	private User mCartUser;
 
 	@Override
 	public Long getId() {
 		return id;
 	}
 
-	@Override
+
+
+	
+	//@Override
 	public Collection<ShoppingCartItemInterface> getItems() {
 		return new ArrayList<>(mItems);
 	}
-
-	@Override
+ 
+	//@Override
 	public void setItems(Collection<ShoppingCartItemInterface> pItems) {
 		mItems = new ArrayList<>();
 		for(ShoppingCartItemInterface sci : pItems) {
@@ -47,18 +38,18 @@ public class ShoppingCart implements ShoppingCartInterface,Serializable {
 		}
 	}
 
-	@Override
-	public String getCartUser() {
+	//@Override
+	public User getCartUser() {
 		// TODO Auto-generated method stub
-		return null;
+		return mCartUser;
 	}
 
-	@Override
-	public void setCartUser(String pName) {
-		// TODO Auto-generated method stub
+	//@Override
+	public void setCartUser(User pCartUser) {
+		mCartUser=pCartUser;
 
 	}
-
+	
 	@Override
 	public Status getCartStatus() {
 		// TODO Auto-generated method stub
@@ -111,5 +102,10 @@ public class ShoppingCart implements ShoppingCartInterface,Serializable {
 	public String toString() {
 		return this.getClass().getSimpleName()+" [id=" + id + ", mItems=" + mItems + ", mStatus=" + mStatus + "]";
 	}
+
+
+
+
+
 
 }

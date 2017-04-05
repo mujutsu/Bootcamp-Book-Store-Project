@@ -13,7 +13,7 @@ import curs.interfaces.BookInterface;
 @XmlRootElement(name = "book")
 @Entity
 @Table(name = "book")
-public class Book implements BookInterface{
+public class Book implements BookInterface {
 	@Override
 	public String toString() {
 		return "Book [mTitle=" + mTitle + ", mAuthor=" + mAuthor + "]";
@@ -55,18 +55,41 @@ public class Book implements BookInterface{
 		return mAvailableCount;
 	}
 
-	public void setAvailableCount (Integer pAvailableCount) {
+	public void setAvailableCount(Integer pAvailableCount) {
 		mAvailableCount = pAvailableCount;
 	}
 
-	public Integer getSellCount() {
+	public Integer getSoldBooksCount() {
 		return mSellCount;
 	}
 
-	public void setSellCount(Integer pSellCount) {
+	public void setSoldBooksCount(Integer pSellCount) {
 		mSellCount = pSellCount;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Book other = (Book) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
 
 }

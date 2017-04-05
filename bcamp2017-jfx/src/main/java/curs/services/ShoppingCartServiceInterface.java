@@ -2,7 +2,7 @@ package curs.services;
 import java.util.Collection;
 
 import curs.model.Book;
-import curs.model.ShoppingCart;
+import curs.model.ActiveShoppingCart;
 import curs.model.ShoppingCartItem;
 import retrofit.Call;
 import retrofit.http.Body;
@@ -18,10 +18,10 @@ public interface ShoppingCartServiceInterface {
 		"Content-Type: application/json"
 	})
 	@GET("/cart")
-	public Call<ShoppingCart> getShoppingCart();
+	public Call<ActiveShoppingCart> getShoppingCart();
 	
 	@GET("cart/list")
-	public Call<Collection<ShoppingCart>> getShoppingCartList();
+	public Call<Collection<ActiveShoppingCart>> getShoppingCartList();
 	
 	@POST("cart/remove/item")
 	public Call<Boolean> removeCartItem(@Body ShoppingCartItem pItem);

@@ -58,7 +58,8 @@ public class LoginScreenController extends BaseController {
 				// dlg.setContentText("Successful login");
 //				dlg.showAndWait();
 
-				navigateToScreen(ScreenNames.bookListScreen);
+				navigateToScreen(ScreenNames.bookstoreScreen);
+//				navigateToScreen(ScreenNames.bookListScreen);
 			} else {
 				Alert dlg = new Alert(AlertType.WARNING);
 				dlg.setTitle("Try again or register");

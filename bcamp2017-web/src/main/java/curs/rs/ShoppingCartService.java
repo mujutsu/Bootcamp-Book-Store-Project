@@ -10,7 +10,7 @@ import curs.dao.BookDAO;
 import curs.dao.ShoppingCartDAO;
 import curs.interfaces.ShoppingCartItemInterface;
 import curs.model.Book;
-import curs.model.ShoppingCart;
+import curs.model.ActiveShoppingCart;
 import curs.model.ShoppingCartItem;
 import curs.rs.interfaces.ShoppingCartServiceInterface;
 
@@ -19,7 +19,7 @@ public class ShoppingCartService implements ShoppingCartServiceInterface {
 	private ShoppingCartDAO mCartDAO;
 
 	@Inject
-	ShoppingCart mCart;
+	ActiveShoppingCart mCart;
 
 	@Override
 	public boolean removeCartItemByQuantity(ShoppingCartItem pItem, int pQuantity) {
@@ -54,13 +54,13 @@ public class ShoppingCartService implements ShoppingCartServiceInterface {
 	}
 
 	@Override
-	public ShoppingCart getShoppingCart() {
+	public ActiveShoppingCart getShoppingCart() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Collection<ShoppingCart> getShoppingCartList() {
+	public Collection<ActiveShoppingCart> getShoppingCartList() {
 		// TODO Auto-generated method stub
 		return null;
 	}

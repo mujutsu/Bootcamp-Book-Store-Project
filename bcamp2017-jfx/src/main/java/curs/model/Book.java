@@ -11,13 +11,31 @@ public class Book implements BookInterface {
 	private SimpleStringProperty title = new SimpleStringProperty();
 	private SimpleStringProperty author = new SimpleStringProperty();
 	private SimpleIntegerProperty available = new SimpleIntegerProperty();
-	private SimpleIntegerProperty booked = new SimpleIntegerProperty();
+	private SimpleIntegerProperty soldBooks = new SimpleIntegerProperty();
 
 	
 	public Long getId() {
 		return id.getValue();
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Book other = (Book) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+	
+	
 	public void setId(Long id) {
 		this.id.set(id);
 	}
@@ -46,12 +64,13 @@ public class Book implements BookInterface {
 		this.available.set(available);
 	}
 
-	public Integer getSellCount() {
-		return booked.getValue();
+	public Integer getSoldBooksCount() {
+		return soldBooks.getValue();
 	}
 
-	public void setSellCount(Integer booked) {
-		this.booked.set(booked);
+	public void setSoldBooksCount(Integer sold) {
+		soldBooks.setValue(sold);
+		
 	}
 
 }

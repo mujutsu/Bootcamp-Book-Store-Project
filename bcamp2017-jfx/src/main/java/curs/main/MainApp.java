@@ -31,6 +31,7 @@ public class MainApp extends Application {
 		mainContainer.loadScreen(ScreenNames.loginScreen,ScreenNames.loginScreenResource);
 		mainContainer.loadScreen(ScreenNames.bookListScreen, ScreenNames.bookListScreenResource);
 		mainContainer.loadScreen(ScreenNames.registerScreen, ScreenNames.registerScreenResource);
+		mainContainer.loadScreen(ScreenNames.bookstoreScreen, ScreenNames.bookstoreScreenResource);
 		mainContainer.setScreen(ScreenNames.loginScreen);
 
 		Group root = new Group();

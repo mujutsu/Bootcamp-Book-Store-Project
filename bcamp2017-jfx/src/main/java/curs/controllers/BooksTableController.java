@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import curs.model.Book;
-import curs.model.User;
-import curs.nav.ScreenNames;
 import curs.services.BookServiceInterface;
 import curs.services.RestClient;
 import curs.services.UserServiceInterface;
@@ -17,11 +15,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 
@@ -98,7 +96,7 @@ public class BooksTableController extends BaseController {
 		try {
 			Integer count = Integer.parseInt(bBooked.getText());
 			mCurrentBook.setAvailableCount(mCurrentBook.getAvailableCount() - count);
-			mCurrentBook.setSellCount(mCurrentBook.getSellCount() + count);
+			mCurrentBook.setSoldBooksCount(mCurrentBook.getSoldBooksCount() + count);
 			System.out.println("book left "+mCurrentBook.getAvailableCount());
 			mBSI.updateBook(mCurrentBook).execute(); 
 
@@ -138,7 +136,7 @@ public class BooksTableController extends BaseController {
 		 b.setId(mCurrentBook.getId());
 		 System.out.println("CURRENT BOOK BEING MODIFIED: ID - "+mCurrentBook.getId());
 		b.setAvailableCount(Integer.parseInt(bAvailable.getText()));
-		b.setSellCount(mCurrentBook.getSellCount());
+		b.setSoldBooksCount(mCurrentBook.getSoldBooksCount());
 		try {
 			mBSI.updateBook(b).execute();
 		} catch (IOException e) {
@@ -243,6 +241,7 @@ public class BooksTableController extends BaseController {
 			showBookDetails(newValue);
 			mCurrentBook = newValue;
 		});
+		onRefreshBooks(new ActionEvent());
 	}
 
 }

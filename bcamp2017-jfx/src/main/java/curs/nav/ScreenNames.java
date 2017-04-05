@@ -7,5 +7,7 @@ public interface ScreenNames {
 	public static String bookListScreenResource = "/fxml/books_table.fxml";
 	public static String registerScreen = "register";
 	public static String registerScreenResource = "/fxml/register_screen.fxml";
+	public static String bookstoreScreen= "bookstore";
+	public static String bookstoreScreenResource= "/fxml/bookstore_screen.fxml";
 
 }

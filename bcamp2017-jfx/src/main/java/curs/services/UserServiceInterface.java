@@ -1,5 +1,6 @@
 package curs.services;
 
+import curs.model.ActiveShoppingCart;
 import curs.model.User;
 import retrofit.Call;
 import retrofit.http.Body;
@@ -44,4 +45,13 @@ public interface UserServiceInterface {
 	})
 	@GET("users/role/{role_name}")
 	Call<Boolean> hasRole(@Path("role_name") String pRole);
+	
+	
+	@Headers({
+		"Accept: application/json",
+		"Content-Type: application/json"
+	})
+	@GET("cart")
+	Call<ActiveShoppingCart> getShoppingCart();
+
 }

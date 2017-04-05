@@ -16,8 +16,8 @@ public interface BookInterface {
 
 	public void setAvailableCount(Integer available);
 
-	public Integer getSellCount();
+	public Integer getSoldBooksCount();
 
-	public void setSellCount(Integer booked);
+	public void setSoldBooksCount(Integer sold);
 
 }

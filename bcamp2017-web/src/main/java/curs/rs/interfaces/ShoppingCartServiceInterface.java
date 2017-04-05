@@ -10,7 +10,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import curs.model.Book;
-import curs.model.ShoppingCart;
+import curs.model.ActiveShoppingCart;
 import curs.model.ShoppingCartItem;
 import javafx.scene.media.Media;
 
@@ -37,11 +37,11 @@ public interface ShoppingCartServiceInterface {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	ShoppingCart getShoppingCart();
+	ActiveShoppingCart getShoppingCart();
 
 	@GET
 	@Path("/list")
 	@Produces(MediaType.APPLICATION_JSON)
-	Collection<ShoppingCart> getShoppingCartList();
+	Collection<ActiveShoppingCart> getShoppingCartList();
 	
 }

@@ -46,7 +46,7 @@ public class BookDAO {
 			Book book = findBookById(pId);
 			if (book != null && book.getAvailableCount() >= pAmount) {
 				book.setAvailableCount(book.getAvailableCount() - pAmount);
-				book.setSellCount(book.getSellCount() + pAmount);
+				book.setSoldBooksCount(book.getSoldBooksCount() + pAmount);
 				result = true;
 			}
 			if (newTransaction) {
@@ -120,7 +120,7 @@ public class BookDAO {
 			b.setAuthor(pBook.getAuthor());
 			b.setTitle(pBook.getTitle());
 			b.setAvailableCount(pBook.getAvailableCount());
-			b.setSellCount(pBook.getSellCount());
+			b.setSoldBooksCount(pBook.getSoldBooksCount());
 			if (newTransaction) {
 				mEM.getTransaction().commit();
 			}
