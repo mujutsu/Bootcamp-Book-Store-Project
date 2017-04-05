@@ -5,12 +5,10 @@ import java.util.Collection;
 import java.util.Date;
 
 import curs.interfaces.ShoppingCartInterface;
-import curs.interfaces.ShoppingCartInterface.Status;
 
 public class ShoppingCart implements ShoppingCartInterface{
 	private Collection<ShoppingCartItem> mItems = new ArrayList<>();
 	private User mCartUser;
-	private Status mStatus;
 	private Date mStartTime;
 	private Date mClosingTime;
 	private String mPaymentData;
@@ -49,18 +47,8 @@ public class ShoppingCart implements ShoppingCartInterface{
 
 	}
 
-	@Override
-	public Status getCartStatus() {
-		// TODO Auto-generated method stub
-		return mStatus;
-	}
 
-	@Override
-	public void setCartStatus(Status pStatus) {
-		// TODO Auto-generated method stub
-		mStatus=pStatus;
 
-	}
 
 	@Override
 	public Date getCartStartTime() {
@@ -74,29 +62,9 @@ public class ShoppingCart implements ShoppingCartInterface{
 
 	}
 
-	@Override
-	public Date getCartClosingTime() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
-	@Override
-	public void setCartClosingTime(Date pDate) {
-		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public String getPaymentData() {
-		// TODO Auto-generated method stub
-		return mPaymentData;
-	}
-
-	@Override
-	public void setPaymentData() {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public Long getId() {

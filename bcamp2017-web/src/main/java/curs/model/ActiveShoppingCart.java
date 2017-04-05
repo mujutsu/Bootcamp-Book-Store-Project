@@ -28,8 +28,6 @@ public class ActiveShoppingCart extends ShoppingCart{
 	private Long id;
 	@OneToMany(mappedBy="mCart")
 	private Collection<ShoppingCartItem> mItems;
-	@Column(name="status")
-	private Status mStatus = Status.OPENED;
 	@Column(name="user")
 	@OneToOne
 	private User mCartUser;

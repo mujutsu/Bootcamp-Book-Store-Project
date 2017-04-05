@@ -13,7 +13,6 @@ public class ShoppingCart implements ShoppingCartInterface{
 
 	private Collection<ShoppingCartItem> mItems;
 
-	private Status mStatus = Status.OPENED;
 
 	private User mCartUser;
 
@@ -25,19 +24,30 @@ public class ShoppingCart implements ShoppingCartInterface{
 
 
 	
+//	//@Override
+//	public Collection<ShoppingCartItemInterface> getItems() {
+//		return new ArrayList<>(mItems);
+//	}
+// 
+//	//@Override
+//	public void setItems(Collection<ShoppingCartItemInterface> pItems) {
+//		mItems = new ArrayList<>();
+//		for(ShoppingCartItemInterface sci : pItems) {
+//			mItems.add((ShoppingCartItem)sci);
+//		}
+//	}
+
 	//@Override
-	public Collection<ShoppingCartItemInterface> getItems() {
-		return new ArrayList<>(mItems);
-	}
- 
-	//@Override
-	public void setItems(Collection<ShoppingCartItemInterface> pItems) {
-		mItems = new ArrayList<>();
-		for(ShoppingCartItemInterface sci : pItems) {
-			mItems.add((ShoppingCartItem)sci);
-		}
+	public Collection<ShoppingCartItem> getItems() {
+		return mItems;
 	}
 
+	//@Override
+	public void setItems(Collection<ShoppingCartItem> pItems) {
+		mItems = new ArrayList<>(pItems);
+	}
+
+	
 	//@Override
 	public User getCartUser() {
 		// TODO Auto-generated method stub
@@ -50,17 +60,7 @@ public class ShoppingCart implements ShoppingCartInterface{
 
 	}
 	
-	@Override
-	public Status getCartStatus() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public void setCartStatus(Status pStatus) {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public Date getCartStartTime() {
@@ -74,33 +74,11 @@ public class ShoppingCart implements ShoppingCartInterface{
 
 	}
 
-	@Override
-	public Date getCartClosingTime() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public void setCartClosingTime(Date pDate) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public String getPaymentData() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setPaymentData() {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public String toString() {
-		return this.getClass().getSimpleName()+" [id=" + id + ", mItems=" + mItems + ", mStatus=" + mStatus + "]";
+		return this.getClass().getSimpleName()+" [id=" + id + ", mItems=" + mItems  + "]";
 	}
 
 

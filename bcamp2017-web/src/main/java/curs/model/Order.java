@@ -17,10 +17,15 @@ import javax.persistence.Table;
 import curs.interfaces.ShoppingCartInterface;
 import curs.interfaces.ShoppingCartItemInterface;
 import curs.interfaces.UserInterface;
+import curs.model.Order.Status;
 
 @Entity
 @Table(name="orders")
 public class Order  extends ShoppingCart implements Serializable {
+	static enum Status {
+		FINALIZED,CANCELLED;
+	}
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -28,11 +33,23 @@ public class Order  extends ShoppingCart implements Serializable {
 	private Collection<ShoppingCartItem> mItems;//////////////////////////
 	@Column(name="user")
 	@ManyToOne
-	User mCartUser;
+	private User mCartUser;
+	private Status mStatus;
+	private Date dateOrderPosted;
 
 	@Override
 	public Long getId() {
 		return id;
+	}
+	
+	public Order(ShoppingCart mShoppingCart, Date mDate){
+		this.dateOrderPosted=mDate;
+		this.mCartUser=mShoppingCart.getCartUser();
+		this.mItems=new ArrayList<>(mShoppingCart.getItems());
+		this.mStatus=Status.FINALIZED;
+			
+	}
+	public Order() {
 	}
 	
 	
