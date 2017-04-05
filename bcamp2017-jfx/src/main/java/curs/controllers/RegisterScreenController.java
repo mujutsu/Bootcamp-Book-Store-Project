@@ -4,10 +4,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import curs.exceptions.ValidationException;
 import curs.model.User;
 import curs.nav.ScreenNames;
 import curs.services.RestClient;
 import curs.services.UserServiceInterface;
+import curs.utils.ValidationUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -41,57 +43,65 @@ public class RegisterScreenController extends BaseController {
 	private ComboBox<String> tRole;
 
 	@FXML
-	void onRegister(ActionEvent event) {if (!tPassword.getText().equals(tPasswordConfirm.getText())) {
+	void onRegister(ActionEvent event) {
 
-		Alert dlg = new Alert(AlertType.WARNING);
-		dlg.setTitle("Error");
-		dlg.setContentText("PASSWORDS DON'T MATCH!");
-		dlg.showAndWait();
-	} else {
 		UserServiceInterface us = RestClient.instance().getUserServiceInterface();
 		User user = new User();
 		user.setLoginName(tLogin.getText());
 		user.setPasswd(tPassword.getText());
-		
-		if(tRole.getSelectionModel().getSelectedItem()!=null){
-			String role = tRole.getSelectionModel().getSelectedItem().toString();
 
-			System.out.println("Will try to register "+role );
-			try {
-				if (us.register(user).execute().body()) {
-					Alert dlg = new Alert(AlertType.INFORMATION);
-					dlg.setTitle("Hello:" + user.getLoginName());
-					dlg.setContentText("Successful registration");
-					dlg.showAndWait();
-					navigateToScreen(ScreenNames.loginScreen);
-				} else {
-					Alert dlg = new Alert(AlertType.WARNING);
-					dlg.setTitle("FAIL");
-					dlg.setContentText("Unsuccessful registration");
-					dlg.showAndWait();
-					
-				}
-			} catch (IOException e) {
-				Alert dlg = new Alert(AlertType.ERROR);
-				dlg.setTitle("Error");
-				dlg.setContentText("Err message:" + e.getMessage());
-				dlg.showAndWait();
-			}
-		}
-		else {
+		if (user.getLoginName() == null || user.getLoginName().trim().isEmpty() || user.getPasswd() == null
+				|| user.getPasswd().trim().isEmpty() || tRole.getSelectionModel().getSelectedItem() == null) {
 			Alert dlg = new Alert(AlertType.WARNING);
-			dlg.setTitle("FAIL");
-			dlg.setContentText("PLEASE SELECT A DAMN ROLE");
+			dlg.setTitle("Error!");
+			dlg.setContentText("Please fill in user name, password and select a role");
 			dlg.showAndWait();
-			
+			return;
 		}
-		
 
+		if (!tPassword.getText().equals(tPasswordConfirm.getText())) {
+
+			Alert dlg = new Alert(AlertType.WARNING);
+			dlg.setTitle("Error!");
+			dlg.setContentText("Passwords don't match!");
+			dlg.showAndWait();
+			return;
+		}
+
+		try {
+			ValidationUtils.validatePassword(user.getPasswd());
+		} catch (ValidationException ex) {
+			ex.printStackTrace();
+			Alert dlg = new Alert(AlertType.WARNING);
+			dlg.setTitle("Error!");
+			dlg.setContentText(ex.getMessage());
+			dlg.showAndWait();
+			return;
+		}
+
+		String role = tRole.getSelectionModel().getSelectedItem().toString();
+
+		try {
+			if (us.register(user).execute().body()) {
+				Alert dlg = new Alert(AlertType.INFORMATION);
+				dlg.setTitle("Hello:" + user.getLoginName());
+				dlg.setContentText("Successful registration");
+				dlg.showAndWait();
+				navigateToScreen(ScreenNames.loginScreen);
+			} else {
+				Alert dlg = new Alert(AlertType.WARNING);
+				dlg.setTitle("Error!");
+				dlg.setContentText("Unsuccessful registration");
+				dlg.showAndWait();
+
+			}
+		} catch (IOException e) {
+			Alert dlg = new Alert(AlertType.ERROR);
+			dlg.setTitle("Error!");
+			dlg.setContentText("Err message:" + e.getMessage());
+			dlg.showAndWait();
+		}
 	}
-
-}
-
-
 
 	@FXML
 	void initialize() {
@@ -100,7 +110,7 @@ public class RegisterScreenController extends BaseController {
 		assert tPasswordConfirm != null : "fx:id=\"tPasswordConfirm\" was not injected: check your FXML file 'register_screen.fxml'.";
 		assert bRegister != null : "fx:id=\"bRegister\" was not injected: check your FXML file 'register_screen.fxml'.";
 		assert tRole != null : "fx:id=\"tRole\" was not injected: check your FXML file 'register_screen.fxml'.";
-	
-		tRole.getItems().addAll("User","Admin");
+
+		tRole.getItems().addAll("User", "Admin");
 	}
 }

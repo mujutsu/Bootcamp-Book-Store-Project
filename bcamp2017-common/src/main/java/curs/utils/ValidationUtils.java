@@ -11,7 +11,7 @@ public class ValidationUtils {
 
 		pPasswd = pPasswd.trim();
 		if (pPasswd.length() < 8) {
-			throw new ValidationException("Password needs to be longer than 8 characters.");
+			throw new ValidationException("Password needs to at least 8 characters long.");
 		}
 		
 		boolean hasLetters=false;
