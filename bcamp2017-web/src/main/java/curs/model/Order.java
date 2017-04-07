@@ -17,42 +17,72 @@ import javax.persistence.Table;
 import curs.interfaces.ShoppingCartInterface;
 import curs.interfaces.ShoppingCartItemInterface;
 import curs.interfaces.UserInterface;
-import curs.model.Order.Status;
 
 @Entity
-@Table(name="orders")
-public class Order  extends ShoppingCart implements Serializable {
+@Table(name = "orders")
+public class Order extends ShoppingCart implements Serializable {
 	static enum Status {
-		FINALIZED,CANCELLED;
+		FINALIZED, CANCELLED;
 	}
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@OneToMany(mappedBy="mCart")
+	@OneToMany(mappedBy = "mCart")
 	private Collection<ShoppingCartItem> mItems;//////////////////////////
-	@Column(name="user")
+	@Column(name = "user")
 	@ManyToOne
 	private User mCartUser;
 	private Status mStatus;
-	private Date dateOrderPosted;
+	private Date mDateOrderPosted;
+
+	public Order() {
+
+	}
+
+	public Order(ShoppingCart mShoppingCart, Date mDate) {
+		this.mDateOrderPosted = mDate;
+		this.mCartUser = mShoppingCart.getCartUser();
+		this.mItems = new ArrayList<>(mShoppingCart.getItems());
+		this.mStatus = Status.FINALIZED;
+
+	}
 
 	@Override
 	public Long getId() {
 		return id;
 	}
-	
-	public Order(ShoppingCart mShoppingCart, Date mDate){
-		this.dateOrderPosted=mDate;
-		this.mCartUser=mShoppingCart.getCartUser();
-		this.mItems=new ArrayList<>(mShoppingCart.getItems());
-		this.mStatus=Status.FINALIZED;
-			
-	}
-	public Order() {
-	}
-	
-	
 
+	public Collection<ShoppingCartItem> getItems() {
+		return mItems;
+	}
+
+	public void setItems(Collection<ShoppingCartItem> pItems) {
+		mItems = pItems;
+	}
+
+	public User getCartUser() {
+		return mCartUser;
+	}
+
+	public void setCartUser(User pCartUser) {
+		mCartUser = pCartUser;
+	}
+
+	public Status getStatus() {
+		return mStatus;
+	}
+
+	public void setStatus(Status pStatus) {
+		mStatus = pStatus;
+	}
+
+	public Date getDateOrderPosted() {
+		return mDateOrderPosted;
+	}
+
+	public void setDateOrderPosted(Date pDateOrderPosted) {
+		mDateOrderPosted = pDateOrderPosted;
+	}
 
 }

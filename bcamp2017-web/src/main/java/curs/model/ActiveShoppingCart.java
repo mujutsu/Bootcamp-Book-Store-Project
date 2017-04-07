@@ -22,22 +22,39 @@ import curs.interfaces.UserInterface;
 @SessionScoped
 @Entity
 @Table(name = "active_shopping_carts")
-public class ActiveShoppingCart extends ShoppingCart{
+public class ActiveShoppingCart extends ShoppingCart {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@OneToMany(mappedBy="mCart")
+	@OneToMany(mappedBy = "mCart")
 	private Collection<ShoppingCartItem> mItems;
-	@Column(name="user")
+	@Column(name = "user")
 	@OneToOne
 	private User mCartUser;
+
+	public ActiveShoppingCart() {
+
+	}
 
 	@Override
 	public Long getId() {
 		return id;
 	}
-	
 
+	public Collection<ShoppingCartItem> getItems() {
+		return mItems;
+	}
 
+	public void setItems(Collection<ShoppingCartItem> pItems) {
+		mItems = pItems;
+	}
+
+	public User getCartUser() {
+		return mCartUser;
+	}
+
+	public void setCartUser(User pCartUser) {
+		mCartUser = pCartUser;
+	}
 
 }
