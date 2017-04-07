@@ -12,7 +12,7 @@ public class User implements UserInterface{
 	private String mLoginName;
 	private String mPasswd;
 	private Collection<String> mRoles = new ArrayList<>();
-	private ActiveShoppingCart mShoppingCart;
+	private ActiveShoppingCart mActiveShoppingCart;
 	private List<Order> mOrderHistory;
 
 
@@ -50,5 +50,13 @@ public class User implements UserInterface{
 	public List<Order> getOrderHistory() {
 		// TODO Auto-generated method stub
 		return mOrderHistory;
+	}
+	
+	public ActiveShoppingCart getActiveShoppingCart(){
+		return mActiveShoppingCart;
+	}
+	
+	public void setActiveShoppingCart(ActiveShoppingCart cart){
+		mActiveShoppingCart=cart;
 	}
 }

@@ -1,5 +1,6 @@
 package curs.rs;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -76,6 +77,12 @@ public class UserService implements UserServiceInterface {
 	@Override
 	public boolean hasRole(String pRole) {
 		return mHTTPRequest.isUserInRole(pRole);
+	}
+
+	@Override
+	public Collection<Order> getUserOrderHistory() {
+		// TODO Auto-generated method stub
+		
 	}
 
 

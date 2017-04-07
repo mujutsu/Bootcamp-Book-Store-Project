@@ -31,7 +31,7 @@ public class User implements UserInterface,Serializable {
 	private Collection<String> mRoles = new ArrayList<String>();
 	@OneToOne
 	@Column(name="cart")
-	private ActiveShoppingCart mShoppingCart;
+	private ActiveShoppingCart mActiveShoppingCart;
 	@OneToMany
 	private List<Order> mOrderHistory; 
 
@@ -69,6 +69,14 @@ public class User implements UserInterface,Serializable {
 	public List<Order> getOrderHistory() {
 		// TODO Auto-generated method stub
 		return mOrderHistory;
+	}
+	
+	public ActiveShoppingCart getActiveShoppingCart(){
+		return mActiveShoppingCart;
+	}
+	
+	public void setActiveShoppingCart(ActiveShoppingCart cart){
+		mActiveShoppingCart=cart;
 	}
 
 }

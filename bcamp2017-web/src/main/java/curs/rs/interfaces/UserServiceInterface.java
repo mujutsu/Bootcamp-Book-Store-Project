@@ -1,6 +1,6 @@
 package curs.rs.interfaces;
 
-import java.util.List;
+import java.util.Collection;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -11,7 +11,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import curs.model.Order;
-import curs.model.ActiveShoppingCart;
 import curs.model.User;
 
 @Path("/users")
@@ -38,6 +37,12 @@ public interface UserServiceInterface {
 	@Path("role/{role_name}")
 	@Produces(MediaType.APPLICATION_JSON)
 	boolean hasRole(@PathParam("role_name") String pRole);
+	
+	
+	@GET
+	@Path("order_history")
+	@Produces(MediaType.APPLICATION_JSON)
+	Collection<Order> getUserOrderHistory();
 	
 //	@GET
 //	@Path("cart")
