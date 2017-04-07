@@ -23,8 +23,8 @@ public class BookDAO {
 	public BookDAO() {
 	}
 
-	public Book findBookById(Long pID) {
-		return mEM.find(Book.class, pID);
+	public Book findBookById(Long pId) {
+		return mEM.find(Book.class, pId);
 	}
 
 	public List<Book> getAllBooks() {

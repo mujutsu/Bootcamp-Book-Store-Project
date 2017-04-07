@@ -19,7 +19,7 @@ import curs.interfaces.UserInterface;
 
 @Entity
 @Table(name = "users", schema = "security")
-public class User implements UserInterface,Serializable {
+public class User implements UserInterface, Serializable {
 	@Id
 	@Column(name = "user_name")
 	private String mLoginName;
@@ -30,10 +30,10 @@ public class User implements UserInterface,Serializable {
 	@Column(name = "role_name")
 	private Collection<String> mRoles = new ArrayList<String>();
 	@OneToOne
-	@Column(name="cart")
+	@Column(name = "cart")
 	private ActiveShoppingCart mShoppingCart;
 	@OneToMany
-	private List<Order> mOrderHistory; 
+	private List<Order> mOrderHistory;
 
 	public Collection<String> getRoles() {
 		return mRoles;
@@ -59,13 +59,13 @@ public class User implements UserInterface,Serializable {
 		mPasswd = pPasswd;
 	}
 
-	//@Override
+	// @Override
 	public void setOrderHistory(List<Order> pOrderHistory) {
-		mOrderHistory=pOrderHistory;
-		
+		mOrderHistory = pOrderHistory;
+
 	}
 
-	//@Override
+	// @Override
 	public List<Order> getOrderHistory() {
 		// TODO Auto-generated method stub
 		return mOrderHistory;

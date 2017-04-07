@@ -19,10 +19,10 @@ public class ShoppingCartItem implements ShoppingCartItemInterface {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@ManyToOne
-	@JoinColumn(name="cart_fk")
+	@JoinColumn(name = "cart_fk")
 	private ActiveShoppingCart mCart;
 	@ManyToOne
-	@JoinColumn(name="book_fk")
+	@JoinColumn(name = "book_fk")
 	private Book mBook;
 	private int mQuantity;
 
@@ -31,8 +31,40 @@ public class ShoppingCartItem implements ShoppingCartItemInterface {
 		return id;
 	}
 
-	
-	
+	@Override
+	public ShoppingCartInterface getShoppingCart() {
+		return mCart;
+	}
+
+	@Override
+	public void setShoppingCart(ShoppingCartInterface pCart) {
+		mCart = (ActiveShoppingCart) pCart;
+
+	}
+
+	@Override
+	public BookInterface getBook() {
+		return mBook;
+
+	}
+
+	@Override
+	public void setBook(BookInterface pBook) {
+		mBook = (Book) pBook;
+	}
+
+	@Override
+	public int getQuantity() {
+		return mQuantity;
+	}
+
+	@Override
+	public void setQuantity(int pQuantity) {
+
+		mQuantity = pQuantity;
+
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -41,8 +73,6 @@ public class ShoppingCartItem implements ShoppingCartItemInterface {
 		result = prime * result + ((mBook == null) ? 0 : mBook.hashCode());
 		return result;
 	}
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -66,50 +96,9 @@ public class ShoppingCartItem implements ShoppingCartItemInterface {
 		return true;
 	}
 
-
-
-	@Override
-	public ShoppingCartInterface getShoppingCart() {
-		return mCart;
-	}
-
-	@Override
-	public BookInterface getBook() {
-		return mBook;
-		
-		
-	}
-
-	@Override
-	public void setBook(BookInterface pBook) {
-		mBook = (Book)pBook;
-	}
-
-	@Override
-	public int getQuantity() {
-		return mQuantity;
-	}
-
-	@Override
-	public void setQuantity(int pQuantity) {
-
-		mQuantity=pQuantity;
-
-	}
-
 	@Override
 	public String toString() {
-		return this.getClass().getSimpleName()+" [id=" + id + ", mCart=" + mCart + ", mBook=" + mBook + "]";
+		return this.getClass().getSimpleName() + " [id=" + id + ", mCart=" + mCart + ", mBook=" + mBook + "]";
 	}
-
-	@Override
-	public void setShoppingCart(ShoppingCartInterface pCart) {
-		mCart=(ActiveShoppingCart) pCart;
-
-		
-		
-	}
-	
-	
 
 }

@@ -14,10 +14,6 @@ import curs.interfaces.BookInterface;
 @Entity
 @Table(name = "book")
 public class Book implements BookInterface {
-	@Override
-	public String toString() {
-		return "Book [mTitle=" + mTitle + ", mAuthor=" + mAuthor + "]";
-	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -92,4 +88,8 @@ public class Book implements BookInterface {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "Book [mTitle=" + mTitle + ", mAuthor=" + mAuthor + "]";
+	}
 }
