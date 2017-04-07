@@ -9,35 +9,30 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 import curs.cdi.Logging;
-import curs.model.Order;
-import curs.model.User;
+import curs.model.ActiveShoppingCart;
 
 @RequestScoped
 @Logging
-public class OrderDAO {
+public class ActiveShoppingCartDAO {
 	@Inject
 	private EntityManager mEM;
 
-	public OrderDAO() {
+	public ActiveShoppingCartDAO() {
 
 	}
 
-	public Order findOrderById(Long pId) {
-		return mEM.find(Order.class, pId);
+	public ActiveShoppingCart findActiveShoppingCartById(Long pId) {
+		return mEM.find(ActiveShoppingCart.class, pId);
 	}
 
-	
-	public List<Order> getAllUserOrders(User pUser) {
-		TypedQuery<Order> q = mEM.createQuery("Select o FROM curs.model.Order WHERE o.mCartUser LIKE :userName o ORDER BY o.mDateOrderPosted", Order.class).setParameter("userName", pUser);
-		return q.getResultList();
-	}
-	
-	public List<Order> getAllOrders() {
-		TypedQuery<Order> q = mEM.createQuery("Select o FROM curs.model.Order o ORDER BY o.mCartUser", Order.class);
+	public List<ActiveShoppingCart> getAllActiveShoppingCarts() {
+		TypedQuery<ActiveShoppingCart> q = mEM.createQuery(
+				"Select s FROM curs.model.ActiveShoppingCart s ActiveShoppingCart ORDER BY s.mCartUser",
+				ActiveShoppingCart.class);
 		return q.getResultList();
 	}
 
-	public Order addOrder(Order pOrder) {
+	public ActiveShoppingCart addActiveShoppingCart(ActiveShoppingCart pActiveShoppingCart) {
 		if (mEM.getTransaction().isActive() && mEM.getTransaction().getRollbackOnly()) {
 			throw new PersistenceException("Transaction marked for rollback");
 		}
@@ -47,7 +42,7 @@ public class OrderDAO {
 			mEM.getTransaction().begin();
 		}
 		try {
-			mEM.persist(pOrder);
+			mEM.persist(pActiveShoppingCart);
 			if (newTransaction) {
 				mEM.getTransaction().commit();
 			}
@@ -55,10 +50,10 @@ public class OrderDAO {
 			mEM.getTransaction().rollback();
 			throw pex;
 		}
-		return pOrder;
+		return pActiveShoppingCart;
 	}
 
-	public Order deleteOrder(Long pOrderId) {
+	public ActiveShoppingCart deleteActiveShoppingCart(Long pActiveShoppingCartId) {
 		if (mEM.getTransaction().isActive() && mEM.getTransaction().getRollbackOnly()) {
 			throw new PersistenceException("Transaction marked for rollback");
 		}
@@ -67,11 +62,11 @@ public class OrderDAO {
 			newTransaction = true;
 			mEM.getTransaction().begin();
 		}
-		Order o = null;
+		ActiveShoppingCart acs = null;
 		try {
-			o = mEM.find(Order.class, pOrderId);
-			if (o != null) {
-				mEM.remove(o);
+			acs = mEM.find(ActiveShoppingCart.class, pActiveShoppingCartId);
+			if (acs != null) {
+				mEM.remove(acs);
 			}
 			if (newTransaction) {
 				mEM.getTransaction().commit();
@@ -80,10 +75,11 @@ public class OrderDAO {
 			mEM.getTransaction().rollback();
 			throw pex;
 		}
-		return o;
+		return acs;
 	}
 
-	public Order updateOrder(Long pOrderId, Order pOrder) {
+	public ActiveShoppingCart updateActiveShoppingCart(Long pActiveShoppingCartId,
+			ActiveShoppingCart pActiveShoppingCart) {
 		if (mEM.getTransaction().isActive() && mEM.getTransaction().getRollbackOnly()) {
 			throw new PersistenceException("Transaction marked for rollback");
 		}
@@ -92,13 +88,12 @@ public class OrderDAO {
 			newTransaction = true;
 			mEM.getTransaction().begin();
 		}
-		Order o = null;
+		ActiveShoppingCart acs = null;
 		try {
-			o = mEM.find(Order.class, pOrderId);
-			o.setItems(pOrder.getItems());
-			o.setCartUser(pOrder.getCartUser());
-			o.setStatus(pOrder.getStatus());
-			o.setDateOrderPosted(pOrder.getDateOrderPosted());
+			acs = mEM.find(ActiveShoppingCart.class, pActiveShoppingCartId);
+			acs.setItems(pActiveShoppingCart.getItems());
+			acs.setCartUser(pActiveShoppingCart.getCartUser());
+
 			if (newTransaction) {
 				mEM.getTransaction().commit();
 			}
@@ -106,7 +101,6 @@ public class OrderDAO {
 			mEM.getTransaction().rollback();
 			throw pex;
 		}
-
-		return o;
+		return acs;
 	}
 }

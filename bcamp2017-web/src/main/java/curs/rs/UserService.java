@@ -81,6 +81,7 @@ public class UserService implements UserServiceInterface {
 
 	@Override
 	public Collection<Order> getUserOrderHistory() {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}

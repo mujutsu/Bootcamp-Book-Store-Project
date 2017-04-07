@@ -3,20 +3,17 @@ package curs.rs;
 import java.util.Collection;
 
 import javax.inject.Inject;
-import javax.sql.DataSource;
 
-import curs.cdi.PostgresDB;
-import curs.dao.BookDAO;
-import curs.dao.ShoppingCartDAO;
+import curs.dao.ActiveShoppingCartDAO;
 import curs.interfaces.ShoppingCartItemInterface;
-import curs.model.Book;
 import curs.model.ActiveShoppingCart;
+import curs.model.Book;
 import curs.model.ShoppingCartItem;
 import curs.rs.interfaces.ShoppingCartServiceInterface;
 
 public class ShoppingCartService implements ShoppingCartServiceInterface {
 	@Inject
-	private ShoppingCartDAO mCartDAO;
+	private ActiveShoppingCartDAO mCartDAO;
 
 	@Inject
 	ActiveShoppingCart mCart;
